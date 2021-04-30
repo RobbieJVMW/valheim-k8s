@@ -30,12 +30,16 @@ helm install valheim-server valheim-k8s/valheim-k8s  \
 | `storage.pvc.size`                         | The size of the persistent volume to be created                        | `1Gi`                   |
 | `networking.serviceType`                   | The type of service e.g `NodePort`, `LoadBalancer` or `ClusterIP`      | `LoadBalancer`          |
 | `nodeSelector`                             |                                                                        | `{}`                    |
+| `image.repository` | Specifies container image repository | `lloesche/valheim-server` |
+| `image.tag` | Specifies container image tag | `latest` |
 
 ## Persistence
 
 Currently persistence is supported through mounting a `hostvol` or via a `persistentVolumeClaim`. Please create an issue if you would like support for specific cloud storage solutions via PVCs / storageclasses. They vary by provider so PRs / testers welcome for this. 
 
 ### Using a Host Volume
+
+Note: If you are deploying to a cloud provider it is highly recommended that you use a PVC powered by a cloud-specific storageClass. Otherwise you risk losing your world.
 
 On the node you wish to use make sure the folder you are mounting exists (ideally empty if you are starting a new world). Once you spin up the game pod you should see the following files created:
 ```bash
